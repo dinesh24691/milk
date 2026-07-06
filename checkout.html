@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f5f5f5;
+margin:0;
+padding:20px;
+}
+
+.container{
+max-width:500px;
+margin:auto;
+background:#fff;
+padding:20px;
+border-radius:10px;
+}
+
+input,textarea{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:8px;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:25px;
+background:linear-gradient(135deg,#00c853,#64dd17);
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* MODAL */
+.modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+justify-content:center;
+align-items:center;
+}
+
+.modal-box{
+background:white;
+padding:20px;
+border-radius:15px;
+width:300px;
+}
+
+.modal-box label{
+display:block;
+margin:10px 0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Delivery Details</h2>
+
+<input type="text" placeholder="Full Name">
+<input type="tel" placeholder="Mobile Number">
+<textarea placeholder="Full Address"></textarea>
+<input type="text" placeholder="City">
+<input type="text" placeholder="Pincode">
+
+<button onclick="placeOrder()">Place Order</button>
+
+</div>
+
+<!-- PAYMENT MODAL -->
+<div id="paymentModal" class="modal">
+  <div class="modal-box">
+
+    <h3>Select Payment Method</h3>
+
+    <label><input type="radio" name="payment" value="gpay"> Google Pay</label>
+    <label><input type="radio" name="payment" value="phonepe"> PhonePe</label>
+    <label><input type="radio" name="payment" value="paytm"> Paytm</label>
+    <label><input type="radio" name="payment" value="bhim"> BHIM UPI</label>
+    <label><input type="radio" name="payment" value="cod"> Cash on Delivery</label>
+
+    <button onclick="confirmOrder()">Confirm Order</button>
+
+  </div>
+</div>
+
+<script>
+
+function placeOrder(){
+  document.getElementById("paymentModal").style.display = "flex";
+}
+
+function confirmOrder(){
+
+  let payment = document.querySelector('input[name="payment"]:checked');
+
+  if(!payment){
+    alert("Please select payment method");
+    return;
+  }
+
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  if(cart.length === 0){
+    alert("Your cart is empty!");
+    return;
+  }
+
+  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+  orders.push({
+    id: Date.now(),
+    items: cart,
+    payment: payment.value,
+    date: new Date().toLocaleString(),
+    status: "Pending"
+  });
+
+  localStorage.setItem("orders", JSON.stringify(orders));
+
+  localStorage.removeItem("cart");
+
+  alert("Order placed successfully 🚀");
+
+  window.location.href = "orders.html";
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Panel</title>
+</head>
+
+<body>
+
+<h2>Admin - Orders</h2>
+
+<div id="orders"></div>
+
+<script>
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+function updateStatus(index, status){
+  orders[index].status = status;
+  localStorage.setItem("orders", JSON.stringify(orders));
+  location.reload();
+}
+
+let html = "";
+
+orders.forEach((o,i)=>{
+html += `
+<div style="border:1px solid #ccc;padding:10px;margin:10px;">
+<h3>${o.product}</h3>
+<p>${o.orderId}</p>
+
+<button onclick="updateStatus(${i},'Packed')">Packed</button>
+<button onclick="updateStatus(${i},'On the Way')">On the Way</button>
+<button onclick="updateStatus(${i},'Delivered')">Delivered</button>
+
+</div>
+`;
+});
+
+document.getElementById("orders").innerHTML = html;
+</script>
+
+</body>
+</html>

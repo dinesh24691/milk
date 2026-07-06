@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Profile</title>
+</head>
+<body>
+
+<h2>My Profile</h2>
+
+<div id="info"></div>
+
+<script>
+let user = JSON.parse(localStorage.getItem("user"));
+
+if(!user){
+  document.getElementById("info").innerHTML = "Not logged in";
+}else{
+  document.getElementById("info").innerHTML = `
+    <p>Name: ${user.name}</p>
+    <p>Phone: ${user.phone}</p>
+  `;
+}
+</script>
+
+</body>
+</html>

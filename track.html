@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Track Order</title>
+<style>
+body{
+  font-family:Arial;
+  text-align:center;
+  padding:40px;
+}
+.tick{
+  font-size:80px;
+  color:green;
+  animation:pop 1s ease;
+}
+@keyframes pop{
+  0%{transform:scale(0);}
+  100%{transform:scale(1);}
+}
+.box{
+  background:#f5f5f5;
+  padding:20px;
+  border-radius:10px;
+  max-width:500px;
+  margin:auto;
+}
+</style>
+</head>
+
+<body>
+
+<div class="tick">✔</div>
+<h1>Order Placed Successfully 🎉</h1>
+
+<div class="box" id="data"></div>
+
+<audio autoplay>
+  <source src="https://www.soundjay.com/buttons/sounds/button-3.mp3" type="audio/mp3">
+</audio>
+
+<script>
+localStorage.getItem("order")
+
+if(order){
+document.getElementById("data").innerHTML = `
+<p><b>Product:</b> ${order.product}</p>
+<p><b>Name:</b> ${order.name}</p>
+<p><b>Phone:</b> ${order.phone}</p>
+<p><b>Address:</b> ${order.address}</p>
+<p><b>Order ID:</b> ${order.id}</p>
+`;
+}
+</script>
+
+</body>
+</html>

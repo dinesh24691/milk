@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OTP Login</title>
+
+<style>
+body{
+  font-family: Arial;
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: linear-gradient(135deg, #e0f7fa, #fce4ec);
+}
+
+/* LOGIN BOX */
+.box{
+  background:white;
+  padding:25px;
+  border-radius:15px;
+  width:300px;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.box h2{
+  margin-bottom:15px;
+  color:#333;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border-radius:8px;
+  border:1px solid #ddd;
+  outline:none;
+}
+
+/* BUTTON */
+button{
+  width:100%;
+  padding:12px;
+  background:linear-gradient(135deg, #00c853, #64dd17);
+  color:white;
+  border:none;
+  border-radius:25px;
+  cursor:pointer;
+  font-weight:bold;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.03);
+}
+
+/* MODAL BACKGROUND */
+.modal{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  justify-content:center;
+  align-items:center;
+}
+
+/* MODAL BOX */
+.modal-content{
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  width:280px;
+  text-align:center;
+  animation:pop 0.3s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(0.7); opacity:0;}
+  to{transform:scale(1); opacity:1;}
+}
+
+.close{
+  float:right;
+  cursor:pointer;
+  font-size:18px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>Login with OTP</h2>
+
+  <input type="text" id="phone" placeholder="Enter mobile number">
+
+  <button onclick="sendOTP()">Send OTP</button>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="otpModal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">×</span>
+
+    <h3>Enter OTP</h3>
+
+    <input type="text" id="otp" placeholder="Enter OTP">
+
+    <button onclick="verifyOTP()">Verify OTP</button>
+  </div>
+</div>
+
+<script>
+function sendOTP(){
+  alert("OTP sent (demo: 8688)");
+  document.getElementById("otpModal").style.display = "flex";
+}
+
+function closeModal(){
+  document.getElementById("otpModal").style.display = "none";
+}
+
+function verifyOTP(){
+  let otp = document.getElementById("otp").value;
+
+  if(otp === "8688"){
+    localStorage.setItem("login","true");
+    alert("Login successful!");
+    window.location.href = "index.html";
+  } else {
+    alert("Wrong OTP");
+  }
+}
+</script>
+
+</body>
+</html>
